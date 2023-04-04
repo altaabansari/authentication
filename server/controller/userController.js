@@ -8,3 +8,18 @@ exports.createUser = async (req, res, next) => {
     res.send(error);
   }
 };
+exports.loginUser = async (req, res) => {};
+exports.storeCookie = async (req, res) => {
+  res.cookie("test1", true);
+  res.cookie("test2", false, {
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+    secure: true,
+  });
+  res.send("you got cookie");
+};
+exports.getCookie = async (req, res) => {
+  let cookie = req.cookies;
+
+  res.send(cookie);
+};
