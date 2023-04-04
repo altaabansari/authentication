@@ -1,12 +1,12 @@
 const express = require("express");
 require("./database/connection");
 require("dotenv").config();
-
 const app = express();
 app.use(express.json());
-
+const userRoute = require("./routes/userRoute");
 let port = process.env.port || 1212;
-
+let path = "/api/v1/authentication";
+app.use(path, userRoute);
 app.use((err, req, res, next) => {
   res.send(400).send({ success: false, message: err.message });
 });
