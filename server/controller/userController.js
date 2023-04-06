@@ -11,11 +11,10 @@ exports.createUser = async (req, res, next) => {
     console.log(token);
     res.cookie("jwtadded", token, {
       maxAge: 1000 * 60 * 60 * 24,
-      // httpOnly: true,
-      // secure: true,
-      // domain: "localhost",
-      sameSite: "none",
+      httpOnly: true,
       secure: true,
+      domain: "localhost",
+      sameSite: "none",
     });
     console.log(req.cookies);
     res.status(201).send(user);
