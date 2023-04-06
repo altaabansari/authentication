@@ -41,10 +41,10 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 exports.getLogin = async (req, res) => {
-  res.render("register");
+  res.render("login");
 };
 exports.getRegister = async (req, res) => {
-  res.render("login");
+  res.render("register");
 };
 exports.storeCookie = async (req, res) => {
   let token1 = createToken({
