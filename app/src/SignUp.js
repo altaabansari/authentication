@@ -8,18 +8,23 @@ const SignUp = () => {
   console.log(registerData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let user = await fetch(
-      "http://localhost:2424/api/v1/authentication/create-user",
-      {
-        method: "POST",
-        body: JSON.stringify(registerData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    let data = await user.json();
-    console.log(data);
+    try {
+      let user = await fetch(
+        "http://localhost:2424/api/v1/authentication/create-user",
+        {
+          method: "POST",
+
+          body: JSON.stringify(registerData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      let data = await user.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="w-full h-screen flex justify-center items-center">

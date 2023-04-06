@@ -10,14 +10,18 @@ exports.createUser = async (req, res, next) => {
     let token = createToken(user._id);
     console.log(token);
     res.cookie("jwtadded", token, {
-      // maxAge: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60 * 24,
       // httpOnly: true,
       // secure: true,
+      // domain: "localhost",
+      sameSite: "none",
+      secure: true,
     });
+    console.log(req.cookies);
     res.status(201).send(user);
   } catch (error) {
     // next(Error(error));
-    res.send(error);
+    res.status(401).send(error);
   }
 };
 exports.loginUser = async (req, res, next) => {
@@ -36,13 +40,24 @@ exports.loginUser = async (req, res, next) => {
     next(error);
   }
 };
+exports.getLogin = async (req, res) => {
+  res.render("register");
+};
+exports.getRegister = async (req, res) => {
+  res.render("login");
+};
 exports.storeCookie = async (req, res) => {
-  res.cookie("test1", true);
-  res.cookie("test2", false, {
-    maxAge: 1000 * 60 * 60 * 24,
-    httpOnly: true,
-    secure: true,
+  let token1 = createToken({
+    name: "altaf",
+    class: "bsc",
+    contact: 86868688686,
   });
+  res.cookie("test1", token1);
+  // res.cookie("test2", token1, {
+  //   maxAge: 1000 * 60 * 60 * 24,
+  //   httpOnly: true,
+  //   secure: true,
+  // });
   res.send("you got cookie");
 };
 exports.getCookie = async (req, res) => {
