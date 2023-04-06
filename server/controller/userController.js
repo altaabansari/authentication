@@ -8,10 +8,11 @@ exports.createUser = async (req, res, next) => {
   try {
     let user = await User.create({ ...req.body });
     let token = createToken(user._id);
+    console.log(token);
     res.cookie("jwtadded", token, {
-      maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      secure: true,
+      // maxAge: 1000 * 60 * 60 * 24,
+      // httpOnly: true,
+      // secure: true,
     });
     res.status(201).send(user);
   } catch (error) {
@@ -24,6 +25,7 @@ exports.loginUser = async (req, res, next) => {
   try {
     let user = await User.login(email, password);
     let token = createToken(user._id);
+
     res.cookie("loginUserWithJwtAdded", token, {
       httpOnly: true,
       secure: true,
@@ -47,4 +49,9 @@ exports.getCookie = async (req, res) => {
   let cookie = req.cookies;
 
   res.send(cookie);
+};
+exports.getAllUser = async (req, res) => {
+  let user = await User.find({});
+
+  res.send(user);
 };
